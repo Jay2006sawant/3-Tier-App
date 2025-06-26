@@ -22,4 +22,27 @@ This project demonstrates a 3-tier application deployed on Kubernetes (Minikube)
 - `monitoring/` - Prometheus & Grafana setup
 
 ## Getting Started
-Instructions will be provided as the project progresses. 
+Instructions will be provided as the project progresses.
+
+## Monitoring with Prometheus and Grafana
+
+1. Add the Helm stable repo if you haven't:
+   ```sh
+   helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+   helm repo add grafana https://grafana.github.io/helm-charts
+   helm repo update
+   ```
+
+2. Install Prometheus:
+   ```sh
+   helm install prometheus prometheus-community/prometheus -f monitoring/prometheus-values.yaml
+   ```
+
+3. Install Grafana:
+   ```sh
+   helm install grafana grafana/grafana -f monitoring/grafana-values.yaml
+   ```
+
+4. Access Grafana:
+   - Get the NodePort: `kubectl get svc grafana`
+   - Default login: `admin` / `admin` 
