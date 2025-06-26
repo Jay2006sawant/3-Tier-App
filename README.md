@@ -45,4 +45,16 @@ Instructions will be provided as the project progresses.
 
 4. Access Grafana:
    - Get the NodePort: `kubectl get svc grafana`
-   - Default login: `admin` / `admin` 
+   - Default login: `admin` / `admin`
+
+### Importing Example Grafana Dashboard
+
+1. Open Grafana in your browser.
+2. Go to 'Dashboards' > 'Import'.
+3. Upload `monitoring/grafana-dashboard.json` or paste its contents.
+4. Select your Prometheus data source and import.
+
+### Custom Prometheus Scrape Configs
+
+- To use custom scrape configs, mount `monitoring/prometheus-additional-scrape-configs.yaml` into your Prometheus deployment as additional scrape configs.
+- See Prometheus Helm chart documentation for details on `additionalScrapeConfigs`. 
