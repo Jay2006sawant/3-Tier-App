@@ -57,4 +57,53 @@ Instructions will be provided as the project progresses.
 ### Custom Prometheus Scrape Configs
 
 - To use custom scrape configs, mount `monitoring/prometheus-additional-scrape-configs.yaml` into your Prometheus deployment as additional scrape configs.
-- See Prometheus Helm chart documentation for details on `additionalScrapeConfigs`. 
+- See Prometheus Helm chart documentation for details on `additionalScrapeConfigs`.
+
+## Prerequisites
+- Docker
+- Minikube
+- kubectl
+- Helm
+
+## Build Docker Images
+Build and tag the images for frontend and backend:
+
+```sh
+cd frontend
+docker build -t frontend:latest .
+cd ../backend
+docker build -t backend:latest .
+```
+
+## Load Images into Minikube
+If using Minikube, load the images:
+
+```sh
+minikube image load frontend:latest
+minikube image load backend:latest
+```
+
+## Deploy to Kubernetes
+Apply manifests for database, then use Helm for backend, and manifests for frontend:
+
+```sh
+kubectl apply -f database/
+helm install backend charts/backend
+kubectl apply -f frontend/
+```
+
+## Set Up Ingress
+Enable Ingress in Minikube and apply the Ingress manifest:
+
+```sh
+minikube addons enable ingress
+kubectl apply -f frontend/frontend-ingress.yaml
+```
+
+Add `3tier.local` to your hosts file pointing to Minikube IP.
+
+## Access the App
+Visit http://3tier.local/ in your browser.
+
+## Monitoring
+See the Monitoring section above for Prometheus and Grafana setup. 
